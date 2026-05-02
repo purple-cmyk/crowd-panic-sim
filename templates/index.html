@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crowd Panic Estimator</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Crowd Panic Risk Estimator</h1>
+    <p class="subtitle">
+        Rule-based manual estimation for situations where no dataset, camera, or sensor data is available.
+    </p>
+
+    <form method="POST">
+        <label>Crowd Density</label>
+        <select name="density">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+
+        <label>Movement Speed</label>
+        <select name="speed">
+            <option value="calm">Calm</option>
+            <option value="rushed">Rushed</option>
+            <option value="fast">Fast</option>
+        </select>
+
+        <label>Direction Disorder</label>
+        <select name="direction">
+            <option value="organized">Organized</option>
+            <option value="mixed">Mixed</option>
+            <option value="chaotic">Chaotic</option>
+        </select>
+
+        <label>Threat Level</label>
+        <select name="threat">
+            <option value="none">None</option>
+            <option value="suspected">Suspected</option>
+            <option value="confirmed">Confirmed</option>
+        </select>
+
+        <label>Exit Condition</label>
+        <select name="exit">
+            <option value="clear">Clear</option>
+            <option value="partial">Partially Blocked</option>
+            <option value="blocked">Blocked</option>
+        </select>
+
+        <label>Noise Level</label>
+        <select name="noise">
+            <option value="normal">Normal</option>
+            <option value="shouting">Shouting</option>
+            <option value="screaming">Screaming</option>
+        </select>
+
+        <button type="submit">Estimate Panic Risk</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <h2>Panic Score: {{ result.score }}</h2>
+        <h3>Risk Level: {{ result.level }}</h3>
+
+        <h4>Explanation</h4>
+        <ul>
+            {% for reason in result.reasons %}
+            <li>{{ reason }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
